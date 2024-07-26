@@ -1,0 +1,15 @@
+class Placar:
+  def __init__(self, side_color):
+      self._cor = side_color
+      self._pontuacao = 0
+    
+  def marcar_ponto(self):
+      self._pontuacao += 1
+  
+  @property
+  def pontuacao(self):
+      return self._pontuacao
+
+  @pontuacao.setter
+  def pontuacao(self, pontuacao):
+      self._score += pontuacao
