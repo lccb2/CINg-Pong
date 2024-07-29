@@ -1,4 +1,5 @@
 import pygame
+from sys import exit
 
 class Bola:
     def __init__(self, win, x, y, raio, velocidade):
@@ -34,15 +35,13 @@ tela = pygame.display.set_mode((800, 600))
 bola = Bola(tela, 400, 300, 5, 0.05)  
 done = False
 
-while not done:
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
 
     bola.move()
-
     tela.fill((40, 40, 40))
-
     bola.draw()
 
 
