@@ -1,0 +1,22 @@
+from tkinter import *
+janela = Tk()
+janela.title('CINg-Pong')
+janela.geometry('800x600')
+janela['bg'] = 'black'
+
+texto = Label(janela, text = 'CINg-Pong', font = ('Helvetica', 50), bg = ('black'), fg = ('white'))
+texto.pack()
+texto.grid(column=20, row=50)
+
+
+def sair():
+    janela.destroy()
+
+
+botao_jogar = Button(janela, text= 'JOGAR', font = ('Helvetica', 20), bg = ('white'), fg = ('blue'))
+botao_jogar.grid(column=30, row= 80)
+
+botao_sair = Button(janela, text= 'SAIR', font = ('Helvetica', 20), bg = ('white'), fg = ('red'), command=sair)
+botao_sair.grid(column=30, row= 100)
+
+janela.mainloop()
