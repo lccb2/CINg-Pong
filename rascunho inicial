@@ -1,0 +1,46 @@
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+running = True
+dt = 0
+
+coletavel_imagem_robo = pygame.image.load('roboimagem')
+
+
+class Coletaveis:
+    def __init__(self, x, y, image):
+        self.position = pygame.Vector2(x, y)
+        self.image = image
+        self.rect = self.image.get_rect(center=(x, y))
+    
+    def draw(self, screen):
+        screen.blit(self.image, self.rect.topleft)
+
+def aparicao_aleatoria_coletavel(image):
+    x = random.randint(0, screen.get_width() - image.get_width())
+    y = random.randint(0, screen.get_height() - image.get_height())
+    return Coletaveis(x, y, image)
+
+coletaveis = []
+
+for _ in range(10):
+    coletaveis.append(aparicao_aleatoria_coletavel(coletavel_imagem_robo))
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill((0, 0, 0))  
+    
+    for collectible in coletaveis[:]:
+        collectible.draw(screen)
+
+    pygame.display.flip()
+
+    dt = clock.tick(60) / 1000
+
+pygame.quit()
