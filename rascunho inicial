@@ -7,7 +7,8 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-coletavel_imagem_robo = pygame.image.load('roboimagem')
+coletavel_imagem_robo = pygame.image.load('roboimagem.webp')
+coletavel_imagem_robo = pygame.transform.scale(coletavel_imagem_robo, (30, 30))  
 
 
 class Coletaveis:
