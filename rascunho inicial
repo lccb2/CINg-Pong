@@ -1,16 +1,18 @@
 import pygame
 import random
 
+# Inicializa o Pygame
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
 clock = pygame.time.Clock()
 running = True
 dt = 0
 
+# Carrega a imagem do coletável e redimensiona
 coletavel_imagem_robo = pygame.image.load('roboimagem.webp')
-coletavel_imagem_robo = pygame.transform.scale(coletavel_imagem_robo, (30, 30))  
+coletavel_imagem_robo = pygame.transform.scale(coletavel_imagem_robo, (30, 30))
 
-
+# Classe para os Objetos Coletáveis
 class Coletaveis:
     def __init__(self, x, y, image):
         self.position = pygame.Vector2(x, y)
@@ -20,28 +22,43 @@ class Coletaveis:
     def draw(self, screen):
         screen.blit(self.image, self.rect.topleft)
 
-def aparicao_aleatoria_coletavel(image):
-    x = random.randint(0, screen.get_width() - image.get_width())
+# Função para criar um colecionável em uma posição aleatória na coluna especificada
+def aparicao_aleatoria_coletavel_na_coluna(image, coluna_x):
     y = random.randint(0, screen.get_height() - image.get_height())
-    return Coletaveis(x, y, image)
+    return Coletaveis(coluna_x, y, image)
 
+# Lista de Colecionáveis
 coletaveis = []
 
-for _ in range(10):
-    coletaveis.append(aparicao_aleatoria_coletavel(coletavel_imagem_robo))
+# Variável para controlar o tempo de aparecimento dos colecionáveis
+tempo_para_proximo_coletavel = 0
+intervalo_entre_coletaveis = 20  # Tempo em segundos entre a aparição de novos colecionáveis
+coluna_x = 100  # Posição X fixa para a coluna onde os objetos aparecerão
 
+# Loop principal do jogo
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
+    # Atualiza o temporizador
+    tempo_para_proximo_coletavel -= dt
+    if tempo_para_proximo_coletavel <= 0:
+        # Adiciona um novo coletável aleatoriamente na coluna especificada
+        coletaveis.append(aparicao_aleatoria_coletavel_na_coluna(coletavel_imagem_robo, coluna_x))
+        tempo_para_proximo_coletavel = intervalo_entre_coletaveis
+
+    # Limpa a tela
     screen.fill((0, 0, 0))  
     
+    # Desenha os colecionáveis
     for collectible in coletaveis[:]:
         collectible.draw(screen)
 
+    # Atualiza a tela
     pygame.display.flip()
 
+    # Controla a taxa de quadros
     dt = clock.tick(60) / 1000
 
 pygame.quit()
