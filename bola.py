@@ -33,12 +33,12 @@ class Bola:
 pygame.init()
 tela = pygame.display.set_mode((800, 600))
 bola = Bola(tela, 400, 300, 5, 0.05)  
-done = False
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            done = True
+            pygame.QUIT()
+            exit()
 
     bola.move()
     tela.fill((40, 40, 40))
