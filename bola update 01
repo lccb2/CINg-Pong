@@ -1,0 +1,98 @@
+import pygame
+from pygame.locals import *
+from sys import exit
+
+class Tela_incial:
+    def __init__(self, largura, altura):
+        self.largura = largura
+        self.altura = altura
+        self.tela = pygame.display.set_mode((self.largura, self.altura))
+        self.relogio = pygame.time.Clock()
+        pygame.display.set_caption("Cing-Pong")
+
+
+class Bola:
+    def __init__(self, tela, cor, pos_x, pos_y, raio, direcao):
+        self.tela = tela
+        self.cor = cor
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.raio = raio
+        self.direcao_x = direcao
+        self.direcao_y = direcao
+
+    def draw(self):
+        self.bola = pygame.draw.circle(self.tela, self.cor, (self.pos_x, self.pos_y), self.raio)
+
+    def movimento(self):
+        self.pos_x += self.direcao_x
+        self.pos_y += self.direcao_y
+
+        if self.pos_y == tela_1.altura - self.raio:
+            self.direcao_y *= -1
+        if self.pos_y == self.raio:
+            self.direcao_y *= -1
+        if self.pos_x >= tela_1.largura:
+            self.direcao_x *= -1
+
+
+class Player:
+    def __init__(self, tela, cor, pos_x, pos_y, largura, altura):
+        self.tela = tela
+        self.cor = cor
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.largura = largura
+        self.altura = altura
+
+    def draw(self):
+        self.player = pygame.draw.rect(self.tela, self.cor, (self.pos_x, self.pos_y, self.largura, self.altura))
+    
+    def movimento_base(self):
+
+        if event.key == K_w:
+            if self.pos_y > 0:
+                self.pos_y -= 1
+        if event.key == K_s:
+            if self.pos_y + self.altura < tela_1.altura:
+                self.pos_y += 1
+    
+    def movimento_continuo(self):
+        if pygame.key.get_pressed()[K_w]:
+            if self.pos_y > 0:
+                self.pos_y -= 5
+        if pygame.key.get_pressed()[K_s]:
+            if self.pos_y + self.altura < tela_1.altura:
+                self.pos_y += 5
+
+
+tela_1 = Tela_incial(1280, 720)
+bola_1 = Bola(tela_1.tela, (235, 140, 0), 320, 240, 10, 5)
+player_1 = Player(tela_1.tela, (0, 0, 200), 30, tela_1.altura / 2, 20, 80)
+
+
+while True:
+    tela_1.relogio.tick(60)
+    tela_1.tela.fill((0, 0, 0))  
+
+    bola_1.draw()
+    bola_1.movimento()
+    player_1.draw()
+
+
+    if bola_1.bola.colliderect(player_1.player):
+        bola_1.direcao_x = 5
+    
+
+
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            exit() 
+        
+        if event.type == KEYDOWN:
+            player_1.movimento_base()
+
+    player_1.movimento_continuo()
+
+    pygame.display.update()
