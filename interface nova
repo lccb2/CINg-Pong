@@ -1,0 +1,82 @@
+import pygame
+import sys
+
+# Inicializa o Pygame
+pygame.init()
+
+# Define dimensões da tela
+largura, altura = 800, 600
+screen = pygame.display.set_mode((largura, altura))
+pygame.display.set_caption("Janela Principal")
+
+# Define algumas cores
+preto = (0, 0, 0)
+branco = (255, 255, 255)
+vermelho = (255, 0, 0)
+azul = (0, 0, 255)
+
+imagem = pygame.image.load("imagem.png")  # Substitua "imagem.png" pelo nome da sua imagem
+imagem = pygame.transform.scale(imagem, (459, 104))  # Redimensiona a imagem, se necessário
+
+# Função para desenhar botões
+def desenhar_botao(screen, cor, rect, texto):
+    pygame.draw.rect(screen, cor, rect)
+    fonte = pygame.font.SysFont(None, 40)
+    texto_renderizado = fonte.render(texto, True, branco)
+    texto_rect = texto_renderizado.get_rect(center=rect.center)
+    screen.blit(texto_renderizado, texto_rect)
+
+# Função para a janela principal
+def janela_principal():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if botao_sair.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
+                if botao_janela_secundaria.collidepoint(event.pos):
+                    running = False  
+                    janela_secundaria()
+
+        screen.fill(preto)
+        
+        screen.blit(imagem, (largura // 2 - 100, altura // 2 - 200))
+        desenhar_botao(screen, vermelho, botao_sair, "SAIR")
+        desenhar_botao(screen, azul, botao_janela_secundaria, "JOGAR")
+
+        pygame.display.flip()
+
+# Função para a janela secundária
+def janela_secundaria():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if botao_voltar.collidepoint(event.pos):
+                    running = False  # Sai do loop e volta para a janela principal
+                if botao_outro.collidepoint(event.pos):
+                    print("OI")
+
+        screen.fill(preto)
+        screen.blit(imagem, (largura // 2 - 100, altura // 2 - 200))
+        desenhar_botao(screen, vermelho, botao_voltar, "1 PLAYER")
+        desenhar_botao(screen, azul, botao_outro, "2 PLAYER")
+
+        pygame.display.flip()
+
+# Define as posições e tamanhos dos botões
+botao_sair = pygame.Rect(largura // 2 - 100, altura // 2 + 20, 200, 50)
+botao_janela_secundaria = pygame.Rect(largura // 2 - 100, altura // 2 - 50, 200, 50)
+botao_voltar = pygame.Rect(largura // 2 - 100, altura // 2 - 50, 200, 50)
+botao_outro = pygame.Rect(largura // 2 - 100, altura // 2 + 20, 200, 50)
+
+while True:
+    janela_principal()
+    janela_secundaria()
