@@ -11,10 +11,10 @@ imagem1 = pygame.image.load('imagem1.png')
 imagem2 = pygame.image.load('imagem2.png')
 imagem3 = pygame.image.load('imagem3.png')
 imagem4 = pygame.image.load('imagem4.png')
-imagem1 = pygame.transform.scale(imagem1, (30, 30))
-imagem2 = pygame.transform.scale(imagem2, (30, 30))
-imagem3 = pygame.transform.scale(imagem3, (30, 30))
-imagem4 = pygame.transform.scale(imagem4, (30, 30))
+imagem1 = pygame.transform.scale(imagem1, (40, 40))
+imagem2 = pygame.transform.scale(imagem2, (60, 60))
+imagem3 = pygame.transform.scale(imagem3, (45, 45))
+imagem4 = pygame.transform.scale(imagem4, (40, 40))
 
 imagens_coletaveis = [imagem1, imagem2, imagem3, imagem4]
 
@@ -35,8 +35,25 @@ def aparicao_aleatoria_coletavel_na_coluna(imagens, coluna_x):
 coletaveis = []
 
 tempo_para_proximo_coletavel = 0
-intervalo_entre_coletaveis = 2  # Tempo em segundos entre a aparição de novos colecionáveis
-coluna_x = 100  # Posição X fixa para a coluna onde os objetos aparecerão
+intervalo_entre_coletaveis = 2  
+coluna_x = 100  
+
+class Player:
+    def __init__(self, x, y):
+        self.position = pygame.Vector2(x, y)
+        self.image = pygame.Surface((50, 50))
+        self.image.fill((0, 255, 0))  
+        self.rect = self.image.get_rect(center=(x, y))
+    
+    def draw(self, screen):
+        screen.blit(self.image, self.rect.topleft)
+    
+    def move(self, dx, dy):
+        self.position.x += dx
+        self.position.y += dy
+        self.rect.center = self.position
+
+player = Player(screen.get_width() // 2, screen.get_height() - 50)
 
 while running:
     for event in pygame.event.get():
@@ -45,14 +62,30 @@ while running:
 
     tempo_para_proximo_coletavel -= dt
     if tempo_para_proximo_coletavel <= 0:
-        # Adiciona um novo coletável aleatoriamente na coluna especificada
         coletaveis.append(aparicao_aleatoria_coletavel_na_coluna(imagens_coletaveis, coluna_x))
         tempo_para_proximo_coletavel = intervalo_entre_coletaveis
 
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player.move(-300 * dt, 0)
+    if keys[pygame.K_RIGHT]:
+        player.move(300 * dt, 0)
+    if keys[pygame.K_UP]:
+        player.move(0, -300 * dt)
+    if keys[pygame.K_DOWN]:
+        player.move(0, 300 * dt)
+
+    for collectible in coletaveis[:]:
+        if player.rect.colliderect(collectible.rect):
+            coletaveis.remove(collectible)
+            # adicionar lógica para o efeito da coleta do item
+
     screen.fill((0, 0, 0))  
     
-    for collectible in coletaveis[:]:
+    for collectible in coletaveis:
         collectible.draw(screen)
+
+    player.draw(screen)
 
     pygame.display.flip()
 
