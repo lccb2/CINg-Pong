@@ -18,10 +18,13 @@ imagem4 = pygame.transform.scale(imagem4, (40, 40))
 
 imagens_coletaveis = [imagem1, imagem2, imagem3, imagem4]
 
+coletados = [0, 0, 0, 0]  
+
 class Coletaveis:
-    def __init__(self, x, y, image):
+    def __init__(self, x, y, image, index):
         self.position = pygame.Vector2(x, y)
         self.image = image
+        self.index = index
         self.rect = self.image.get_rect(center=(x, y))
     
     def draw(self, screen):
@@ -30,8 +33,9 @@ class Coletaveis:
 def aparicao_aleatoria_coletavel(imagens, coluna_xs):
     y = random.randint(0, screen.get_height() - imagens[0].get_height())
     coluna_x = random.choice(coluna_xs)
-    imagem_aleatoria = random.choice(imagens)
-    return Coletaveis(coluna_x, y, imagem_aleatoria)
+    index_imagem = random.randint(0, len(imagens) - 1)
+    imagem_aleatoria = imagens[index_imagem]
+    return Coletaveis(coluna_x, y, imagem_aleatoria, index_imagem)
 
 coletaveis = []
 tempo_para_proximo_coletavel = 0
@@ -77,7 +81,9 @@ while running:
 
     for collectible in coletaveis[:]:
         if player.rect.colliderect(collectible.rect):
+            coletados[collectible.index] += 1  
             coletaveis.remove(collectible)
+            # adicionar função
 
     screen.fill((0, 0, 0))
     
