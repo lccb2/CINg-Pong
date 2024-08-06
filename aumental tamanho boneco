@@ -1,4 +1,5 @@
 #aumento boneco coletavel
+
 import pygame
 
 pygame.init()
