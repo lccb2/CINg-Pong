@@ -21,7 +21,7 @@ imagem3 = pygame.image.load('imagem3.png')
 imagem4 = pygame.image.load('imagem4.png')
 
 class TelaInicial:
-    def init(self, tela):
+    def __init__(self, tela):
         self.tela = tela
         self.largura = LARGURA
         self.altura = ALTURA
@@ -84,7 +84,7 @@ class TelaInicial:
             pygame.display.flip()
 
 class Placar:
-    def init(self, tela):
+    def __init__(self, tela):
         self.tela = tela
         self.fonte = pygame.font.SysFont(None, 80)
         self.pontuacao_1 = 0
@@ -109,7 +109,7 @@ class Placar:
             return 2
 
 class TelaJogo:
-    def init(self, tela):
+    def __init__(self, tela):
         self.tela = tela
         self.largura = LARGURA
         self.altura = ALTURA
@@ -132,7 +132,7 @@ class TelaJogo:
         player_2.pos_y = ALTURA / 2
 
 class Bola:
-    def init(self, tela, cor, pos_x, pos_y, raio, direcao):
+    def __init__(self, tela, cor, pos_x, pos_y, raio, direcao):
         self.tela = tela
         self.cor = cor
         self.pos_x = pos_x
@@ -168,7 +168,7 @@ class Bola:
             return 'blue'
         
 class Player:
-    def init(self, tela, cor, pos_x, pos_y, largura, altura):
+    def __init__(self, tela, cor, pos_x, pos_y, largura, altura):
         self.tela = tela
         self.cor = cor
         self.pos_x = pos_x
@@ -232,7 +232,7 @@ class Player:
         self.velocidade = 5
 
 class Item_Coletavel:
-    def init(self, tela, tipo, x, y):
+    def __init__(self, tela, tipo, x, y):
         self.tela = tela
         self.tipo = tipo
         self.x = x
@@ -260,7 +260,7 @@ class Item_Coletavel:
         jogador.aplicar_efeito(self.tipo, duracao)
 
 class Tela_da_Vitoria:
-    def init(self, tela, vencedor, itens_coletados_1, itens_coletados_2):
+    def __init__(self, tela, vencedor, itens_coletados_1, itens_coletados_2):
         self.tela = tela
         self.vencedor = vencedor
         self.itens_coletados_1 = itens_coletados_1
