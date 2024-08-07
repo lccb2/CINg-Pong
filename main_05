@@ -24,7 +24,7 @@ class TelaInicial:
         self.tela = tela
         self.largura = LARGURA
         self.altura = ALTURA
-        self.imagem = pygame.image.load("imagem.png")
+        self.imagem = pygame.image.load("imagem0.png")
 
         self.botao_sair = pygame.Rect(self.largura // 2 - 100, self.altura // 2 + 20, 200, 50)
         self.botao_jogar = pygame.Rect(self.largura // 2 - 100, self.altura // 2 - 50, 200, 50)
@@ -302,22 +302,22 @@ class Tela_da_Vitoria:
         self.tela.blit(texto_renderizado, texto_rect)
 
 
-        linha_4 = (f"Cogumelos: {itens_mostrados["aumentar_tamanho"]}")
+        linha_4 = (f"Cogumelos: {itens_mostrados['aumentar_tamanho']}")
         texto_renderizado = self.fonte.render(linha_4, True, branco)
         texto_rect = texto_renderizado.get_rect(center=(LARGURA // 2, 300))
         self.tela.blit(texto_renderizado, texto_rect)
 
-        linha_5 = (f"Pizzas: {itens_mostrados["diminuir_tamanho"]}")
+        linha_5 = (f"Pizzas: {itens_mostrados['diminuir_tamanho']}")
         texto_renderizado = self.fonte.render(linha_5, True, branco)
         texto_rect = texto_renderizado.get_rect(center=(LARGURA // 2, 380))
         self.tela.blit(texto_renderizado, texto_rect)
 
-        linha_6 = (f"Raios: {itens_mostrados["aumentar_velocidade"]}")
+        linha_6 = (f"Raios: {itens_mostrados['aumentar_velocidade']}")
         texto_renderizado = self.fonte.render(linha_6, True, branco)
         texto_rect = texto_renderizado.get_rect(center=(LARGURA // 2, 450))
         self.tela.blit(texto_renderizado, texto_rect)
 
-        linha_7 = (f"Gelos: {itens_mostrados["diminuir_velocidade"]}")
+        linha_7 = (f"Gelos: {itens_mostrados['diminuir_velocidade']}")
         texto_renderizado = self.fonte.render(linha_7, True, branco)
         texto_rect = texto_renderizado.get_rect(center=(LARGURA // 2, 520))
         self.tela.blit(texto_renderizado, texto_rect)
