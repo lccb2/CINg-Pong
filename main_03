@@ -103,9 +103,9 @@ class Placar:
         self.tela.blit(texto_renderizado, texto_rect)
 
     def score_check(self):
-        if self.pontuacao_1 == 11:
+        if self.pontuacao_1 == 3:
             return 1
-        elif self.pontuacao_2 == 11:
+        elif self.pontuacao_2 == 3:
             return 2
 
 class TelaJogo:
