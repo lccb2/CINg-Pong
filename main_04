@@ -409,16 +409,16 @@ while True:
                         break
                 break
 
+            player_1.movimento(pygame.K_w, pygame.K_s)
             if bot:
                 player_2.movimento_bot(bola.pos_y)
+            else:
+                player_2.movimento(pygame.K_UP, pygame.K_DOWN)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                     
-            player_1.movimento(pygame.K_w, pygame.K_s)
-            if not bot:
-                player_2.movimento(pygame.K_UP, pygame.K_DOWN)
 
             pygame.display.flip()
