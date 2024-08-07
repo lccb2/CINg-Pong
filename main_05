@@ -266,6 +266,8 @@ class Item_Coletavel:
         duracao = 10000
         jogador.aplicar_efeito(self.tipo, duracao)
 
+
+
 class Tela_da_Vitoria:
     def __init__(self, tela, vencedor, itens_coletados_1, itens_coletados_2):
         self.tela = tela
@@ -344,9 +346,16 @@ class Tela_da_Vitoria:
                         pygame.quit()
                         sys.exit()
 
+def criar_item():
+    x_positions = [75, LARGURA - 120] 
+    x = random.choice(x_positions) 
+    y = random.randint(100, ALTURA - 100)
+    tipo = random.choice(["aumentar_tamanho", "diminuir_tamanho", "aumentar_velocidade", "diminuir_velocidade"])
+    item = Item_Coletavel(tela, tipo, x, y)
+    itens.append(item)
+    tempo_item.append(pygame.time.get_ticks())
 
 tela_inicial = TelaInicial(tela)
-
 
 while True:
     estado = tela_inicial.atualizar_tela_inicial()
@@ -360,15 +369,6 @@ while True:
 
         itens = []
         tempo_item = []
-
-        def criar_item():
-            x_positions = [75, LARGURA - 120] 
-            x = random.choice(x_positions) 
-            y = random.randint(100, ALTURA - 100)
-            tipo = random.choice(["aumentar_tamanho", "diminuir_tamanho", "aumentar_velocidade", "diminuir_velocidade"])
-            item = Item_Coletavel(tela, tipo, x, y)
-            itens.append(item)
-            tempo_item.append(pygame.time.get_ticks())
 
         criar_item()
 
