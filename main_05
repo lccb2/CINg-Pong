@@ -51,7 +51,7 @@ class TelaInicial:
         self.tela.fill(preto)
         self.tela.blit(self.imagem, (self.largura // 2 - 200, self.altura // 2 - 200))
         self.desenhar_botao(azul, self.botao_singleplayer, "1 JOGADOR")
-        self.desenhar_botao(azul, self.botao_multiplayer, "2 JOGADOR")
+        self.desenhar_botao(azul, self.botao_multiplayer, "2 JOGADORES")
         self.desenhar_botao(vermelho, self.botao_voltar, "VOLTAR")
 
     def atualizar_tela_inicial(self):
